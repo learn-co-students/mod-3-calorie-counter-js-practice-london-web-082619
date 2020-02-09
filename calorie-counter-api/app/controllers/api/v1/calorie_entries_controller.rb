@@ -15,6 +15,13 @@ class Api::V1::CalorieEntriesController < ApplicationController
 
   # POST /api/v1/calorie_entries
   def create
+    api_v1_calorie_entry_params = {
+      calorie: params[:calorie],
+      note: params[:note],
+      created_at: params[:created_at],
+      updated_at: params[:updated_at]
+    }
+
     @api_v1_calorie_entry = Api::V1::CalorieEntry.new(api_v1_calorie_entry_params)
 
     if @api_v1_calorie_entry.save
@@ -35,6 +42,7 @@ class Api::V1::CalorieEntriesController < ApplicationController
 
   # DELETE /api/v1/calorie_entries/1
   def destroy
+    @api_v1_calorie_entry = set_api_v1_calorie_entry
     @api_v1_calorie_entry = @api_v1_calorie_entry.destroy
     render json: @api_v1_calorie_entry
   end
